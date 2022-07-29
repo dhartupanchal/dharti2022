@@ -1,0 +1,21 @@
+<?php
+session_start();
+include("connection.php");
+
+if( !empty($_POST['user_name']) && !empty($_POST['password']))
+{
+
+	$query= "SELECT * FROM login WHERE user_name='".$_POST['user_name']."' AND password='".$_POST['password']."'";
+	$oResult = mysqli_query($conn, $query);
+	$row = mysqli_fetch_assoc($oResult);
+	if (!empty($row)) {
+		$_SESSION["user_name"] = "name";
+		header('Location:portfolio.php');
+	}
+	else
+	{
+		echo "Either user or password is incorrect. <br />";
+		echo "<a href='login.php'> Back to Login</a>";
+	}
+}
+?>
